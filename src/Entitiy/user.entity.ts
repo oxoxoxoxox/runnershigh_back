@@ -5,7 +5,7 @@ export class UserEntity extends DefaultEntity {
   @Column()
   userID: string; // email
   @Column()
-  UserPW: string;
+  userPW: string;
   @Column()
   userName: string;
   @Column()
