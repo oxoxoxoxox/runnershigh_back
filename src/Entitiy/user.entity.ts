@@ -17,3 +17,4 @@ export class UserEntity extends DefaultEntity {
   @Column()
   accept: boolean;
 }
+
