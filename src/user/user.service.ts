@@ -2,8 +2,9 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../Entitiy/user.entity';
 import { Repository } from 'typeorm';
-import { UserCreateDto } from './userdto/userCreateDto';
-import { UserLoginDto } from './userdto/userLoginDto';
+import { UserCreateDto } from './userdto/req/userCreateDto';
+import { UserLoginDto } from './userdto/req/userLoginDto';
+import { LoginResDto } from './userdto/res/login.res.dto';
 
 @Injectable()
 export class UserService {
@@ -18,26 +19,31 @@ export class UserService {
     data.userPW = body.userPW;
     data.sex = body.sex;
     data.age = body.age;
+    data.accept = body.accept;
 
-    const save: UserEntity = await this.userEntity.save(data);
-    return save; //reponse 병경
+    console.log(data);
+    await this.userEntity.save(data);
+    return '축하합니다.'; //reponse 병경
   }
-  async login(query: UserLoginDto) {
-    const IDdata = this.userEntity.findOne({
+  async login(body: UserLoginDto) {
+    const res: LoginResDto = new LoginResDto();
+    const IDdata: UserEntity = await this.userEntity.findOne({
       where: {
-        userID: query.userID,
+        userID: body.userID,
       },
     });
     if (!IDdata) {
       throw new UnauthorizedException('ID(E-Mail)이 틀렸습니다.');
     }
-    const PWdata = this.userEntity.findOne({
+    const PWdata: UserEntity = await this.userEntity.findOne({
       where: {
-        userPW: query.userPW,
+        userPW: body.userPW,
       },
     });
     if (!PWdata) {
       throw new UnauthorizedException('PW가 틀렸습니다.');
     }
+    res.access = '로그인에 성공하였습니다.';
+    return res.access;
   }
 }
