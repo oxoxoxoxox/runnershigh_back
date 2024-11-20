@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './Entitiy/user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
+import { BoardService } from './board/board.service';
+import { BoardModule } from './board/board.module';
 
 @Module({
   imports: [
@@ -27,6 +29,7 @@ import { APP_PIPE } from '@nestjs/core';
       }),
     }),
     UserModule,
+    BoardModule,
   ],
   controllers: [AppController],
   providers: [
@@ -35,6 +38,7 @@ import { APP_PIPE } from '@nestjs/core';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
+    BoardService,
   ],
   exports: [TypeOrmModule],
 })
