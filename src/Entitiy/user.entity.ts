@@ -1,6 +1,7 @@
 import { DefaultEntity } from './default.entity';
-import { Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+@Entity()
 export class UserEntity extends DefaultEntity {
   @Column()
   userID: string; // email
@@ -12,9 +13,8 @@ export class UserEntity extends DefaultEntity {
   sex: boolean;
   @Column()
   age: number;
-  @Column()
+  @Column({ nullable: true })
   level: number;
   @Column()
   accept: boolean;
 }
-
