@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { BoardService } from './board/board.service';
 import { BoardModule } from './board/board.module';
+import { BoardEntity } from './Entitiy/board.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { BoardModule } from './board/board.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserEntity],
+        entities: [UserEntity, BoardEntity],
         synchronize: true,
       }),
     }),
