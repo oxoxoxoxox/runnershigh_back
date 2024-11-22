@@ -10,7 +10,7 @@ import { Ranking } from '../Entitiy/rangking.entity';
 @Module({
   controllers: [MissionController],
   providers: [MissionService],
-  imports: [TypeOrmModule.forFeature([Mission, MissionList, UserEntity,Ranking])],
+  imports: [TypeOrmModule.forFeature([Mission, MissionList, UserEntity])],
   exports: [TypeOrmModule],
 })
 export class MissionModule {}

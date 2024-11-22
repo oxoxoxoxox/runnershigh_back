@@ -6,13 +6,13 @@ import { UserEntity } from './user.entity';
 export class Ranking extends DefaultEntity{
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: '사용자_id' })
+  @JoinColumn()
   user: UserEntity;
 
 
 
  // @ManyToOne(() => RunningEntity)
-  //@JoinColumn({ name: '러닝_테이블' })
+  //@JoinColumn({ name:  })
   //running: RunningEntity;
 
 }

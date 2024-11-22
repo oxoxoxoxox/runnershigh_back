@@ -5,7 +5,7 @@ import { DefaultEntity } from './default.entity';
 @Entity()
 export class MissionList extends DefaultEntity{
 
-  @Column('text')
+  @Column()
   mission_description: string;
 
   //@Column({ nullable: true })  //미션의 조건값 계산 있어야하는지???

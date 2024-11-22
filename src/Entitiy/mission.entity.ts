@@ -14,12 +14,12 @@ export class Mission extends DefaultEntity {
   @JoinColumn({ name: 'user_id' }) // 외래키 이름
   user: UserEntity;
 
-  @ManyToOne(() => MissionList) // 단방향 관계 설정
+  @ManyToOne(() => MissionList, (missionList) => missionList.missions) // 단방향 관계 설정
   @JoinColumn({ name: 'mission_list' }) // 외래키 이름
   missionList: MissionList;
 
-  @Column({ type: 'enum', enum: ['진행 중', '완료'], default: '진행 중' })
-  mission_ing: string;
+  @Column()
+  mission_ing: boolean;
 
   @Column({ nullable: true })
   record: number; // 사용자 런닝 테이블의 기록
