@@ -13,7 +13,7 @@ import { BoardEntity } from './Entitiy/board.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: './.env',
+      envFilePath: './src/.env',
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
