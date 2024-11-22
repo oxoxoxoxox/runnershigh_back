@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nest-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-app
+    ports:
+      - '3333:3000'
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    volumes:
+      - .:/runnershigh
+    command: npm run start:dev
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    ports:
+      - '1041:3306'
+    env_file:
+      - .docker.env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
