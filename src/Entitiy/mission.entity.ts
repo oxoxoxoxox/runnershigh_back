@@ -9,7 +9,7 @@ import { MissionList } from './mission_list';
 import { DefaultEntity } from './default.entity';
 
 @Entity()
-export class Mission extends DefaultEntity {
+export class MissionEntity extends DefaultEntity{
   @ManyToOne(() => UserEntity) // 단방향 관계 설정
   @JoinColumn({ name: 'user_id' }) // 외래키 이름
   user: UserEntity;

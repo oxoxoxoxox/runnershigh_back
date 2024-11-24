@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Mission } from '../Entitiy/mission.entity';
+import { MissionEntity } from '../Entitiy/mission.entity';
 import { MissionList } from '../Entitiy/mission_list';
 
 @Injectable()
 export class MissionService {
   constructor(
-    @InjectRepository(Mission)
-    private readonly missionRepository: Repository<Mission>,
     @InjectRepository(MissionList)
     private readonly missionListRepository: Repository<MissionList>,
   ) {}
