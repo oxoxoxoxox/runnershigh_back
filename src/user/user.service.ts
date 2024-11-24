@@ -5,12 +5,16 @@ import { Repository } from 'typeorm';
 import { UserCreateDto } from './userdto/req/userCreateDto';
 import { UserLoginDto } from './userdto/req/userLoginDto';
 import { LoginResDto } from './userdto/res/login.res.dto';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userEntity: Repository<UserEntity>,
+    private configService: ConfigService,
+    private jwtService: JwtService,
   ) {}
   async create(body: UserCreateDto) {
     const data: UserEntity = new UserEntity();
@@ -20,8 +24,6 @@ export class UserService {
     data.sex = body.sex;
     data.age = body.age;
     data.accept = body.accept;
-
-    console.log(data);
     await this.userEntity.save(data);
     return '축하합니다.'; //reponse 병경
   }
@@ -43,7 +45,22 @@ export class UserService {
     if (!PWdata) {
       throw new UnauthorizedException('PW가 틀렸습니다.');
     }
-    res.access = '로그인에 성공하였습니다.';
-    return res.access;
+    const payload = {
+      id: IDdata.id.toString(),
+      userName: IDdata.userName.toString(),
+    };
+    const secA = this.configService.get('access_Key');
+    const secB = this.configService.get('refresh_Key');
+    const accessToken = this.jwtService.sign(payload, {
+      secret: secA,
+      expiresIn: '100s',
+    });
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: secB,
+      expiresIn: '100s',
+    });
+    res.access = accessToken;
+    res.refresh = refreshToken;
+    return res;
   }
 }

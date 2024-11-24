@@ -9,6 +9,7 @@ import { APP_PIPE } from '@nestjs/core';
 import { BoardService } from './board/board.service';
 import { BoardModule } from './board/board.module';
 import { BoardEntity } from './Entitiy/board.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { BoardEntity } from './Entitiy/board.entity';
     }),
     UserModule,
     BoardModule,
+    JwtModule,
   ],
   controllers: [AppController],
   providers: [
@@ -41,6 +43,6 @@ import { BoardEntity } from './Entitiy/board.entity';
     },
     BoardService,
   ],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, JwtModule],
 })
 export class AppModule {}
