@@ -6,7 +6,7 @@ import { UserCreateDto } from './userdto/req/userCreateDto';
 import { UserLoginDto } from './userdto/req/userLoginDto';
 import { LoginResDto } from './userdto/res/login.res.dto';
 import { ConfigService } from '@nestjs/config';
-import { JwtService } from "@nestjs/jwt";
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
