@@ -19,7 +19,7 @@ export class MissionEntity extends DefaultEntity{
   missionList: MissionList;
 
   @Column()
-  mission_ing: boolean;
+  mission_ing: boolean;    //0일떄 진행중 1일떄 성공
 
   @Column({ nullable: true })
   record: number; // 사용자 런닝 테이블의 기록
