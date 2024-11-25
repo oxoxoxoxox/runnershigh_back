@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class BoardCreateDto {
   @IsString()
@@ -6,13 +6,9 @@ export class BoardCreateDto {
   @IsString()
   contents: string;
   @IsString()
-  image_url: string;
-  @IsNumber()
-  people: number;
-  @IsBoolean()
-  status: boolean;
-  @IsString()
   gender: string;
-  @IsNumber()
-  time: number;
+  @IsString()
+  time: string;
+  @IsString()
+  image_url: string;
 }
