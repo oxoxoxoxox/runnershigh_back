@@ -24,17 +24,16 @@ export class RankingService {
       .leftJoinAndSelect('ranking.user', 'user')
       .leftJoinAndSelect('ranking.running', 'running')
       .orderBy('running.distance', 'DESC')
-      .take(5)
       .getMany();
 
     console.log('Raw rankings:', rankings); // 원본 데이터 로깅
 
     // 필요한 데이터만 매핑하고 순위 부여
     const formattedRankings = rankings.map((ranking, index) => ({
-      position: index + 1, // 순위 부여
+      ranker: index + 1, // 순위 부여
       userName: ranking.user.userName,
       level: ranking.user.level,
-      distance: ranking.running.distance,
+    //  distance: ranking.running.distance,
     }));
 
     console.log('Formatted rankings with positions:', formattedRankings); // 포맷된 데이터 로깅
