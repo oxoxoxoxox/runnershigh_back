@@ -1,18 +1,18 @@
-import { Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { DefaultEntity } from './default.entity';
 import { UserEntity } from './user.entity';
+import { RunningEntity } from './running.entity';
 
 @Entity()
-export class Ranking extends DefaultEntity{
+export class RangkingEntity extends DefaultEntity{
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: '사용자_id' })
+  @JoinColumn()
   user: UserEntity;
 
+  @ManyToOne(() =>RunningEntity)
+  @JoinColumn()
+  running: RunningEntity;
 
-
- // @ManyToOne(() => RunningEntity)
-  //@JoinColumn({ name: '러닝_테이블' })
-  //running: RunningEntity;
 
 }

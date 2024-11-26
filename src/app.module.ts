@@ -9,6 +9,16 @@ import { APP_PIPE } from '@nestjs/core';
 import { BoardService } from './board/board.service';
 import { BoardModule } from './board/board.module';
 import { BoardEntity } from './Entitiy/board.entity';
+import { MissionList } from './Entitiy/mission_list';
+import {  MissionEntity } from './Entitiy/mission.entity';
+import { MissionService } from './mission/mission.service';
+import { MissionModule } from './mission/mission.module';
+import { RangkingEntity } from './Entitiy/rangking.entity';
+import { RunningModule } from './running/running.module';
+import { RunningEntity } from './Entitiy/running.entity';
+import { RankingModule } from './ranking/ranking.module';
+import { RunningService } from './running/running.service';
+import { RankingService } from './ranking/ranking.service';
 
 @Module({
   imports: [
@@ -25,12 +35,15 @@ import { BoardEntity } from './Entitiy/board.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserEntity, BoardEntity],
+        entities: [UserEntity, BoardEntity,MissionList,MissionEntity,RangkingEntity,RunningEntity],
         synchronize: true,
       }),
     }),
     UserModule,
     BoardModule,
+    MissionModule,
+    RunningModule,
+    RankingModule
   ],
   controllers: [AppController],
   providers: [
@@ -39,7 +52,7 @@ import { BoardEntity } from './Entitiy/board.entity';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
-    BoardService,
+    BoardService,MissionService,RankingService
   ],
   exports: [TypeOrmModule],
 })
