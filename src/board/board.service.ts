@@ -30,7 +30,5 @@ export class BoardService {
     const board = this.boardEntity.find({});
     return board;
   }
-  async join() {
-
-  }
+  async join() {}
 }

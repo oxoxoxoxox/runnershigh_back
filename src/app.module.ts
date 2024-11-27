@@ -10,6 +10,15 @@ import { BoardService } from './board/board.service';
 import { BoardModule } from './board/board.module';
 import { BoardEntity } from './Entitiy/board.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { MissionList } from './Entitiy/mission_list';
+import { MissionEntity } from './Entitiy/mission.entity';
+import { MissionService } from './mission/mission.service';
+import { MissionModule } from './mission/mission.module';
+import { RangkingEntity } from './Entitiy/rangking.entity';
+import { RunningModule } from './running/running.module';
+import { RunningEntity } from './Entitiy/running.entity';
+import { RankingModule } from './ranking/ranking.module';
+import { RankingService } from './ranking/ranking.service';
 
 @Module({
   imports: [
@@ -26,13 +35,23 @@ import { JwtModule } from '@nestjs/jwt';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserEntity, BoardEntity],
+        entities: [
+          UserEntity,
+          BoardEntity,
+          MissionList,
+          MissionEntity,
+          RangkingEntity,
+          RunningEntity,
+        ],
         synchronize: true,
       }),
     }),
     UserModule,
     BoardModule,
     JwtModule,
+    MissionModule,
+    RunningModule,
+    RankingModule,
   ],
   controllers: [AppController],
   providers: [
@@ -42,6 +61,8 @@ import { JwtModule } from '@nestjs/jwt';
       useClass: ValidationPipe,
     },
     BoardService,
+    MissionService,
+    RankingService,
   ],
   exports: [TypeOrmModule, JwtModule],
 })
