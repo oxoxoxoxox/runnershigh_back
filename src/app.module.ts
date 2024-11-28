@@ -19,6 +19,7 @@ import { RunningModule } from './running/running.module';
 import { RunningEntity } from './Entitiy/running.entity';
 import { RankingModule } from './ranking/ranking.module';
 import { RankingService } from './ranking/ranking.service';
+import { Team_entity } from './Entitiy/team_entity';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { RankingService } from './ranking/ranking.service';
           MissionEntity,
           RangkingEntity,
           RunningEntity,
+          Team_entity,
         ],
         synchronize: true,
       }),
@@ -60,9 +62,6 @@ import { RankingService } from './ranking/ranking.service';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
-    BoardService,
-    MissionService,
-    RankingService,
   ],
   exports: [TypeOrmModule, JwtModule],
 })
