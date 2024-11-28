@@ -24,6 +24,7 @@ export class UserService {
     data.sex = body.sex;
     data.age = body.age;
     data.accept = body.accept;
+    data.level = 1;
     await this.userEntity.save(data);
     return '축하합니다.'; //reponse 병경
   }

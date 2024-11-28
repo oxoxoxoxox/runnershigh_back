@@ -7,6 +7,7 @@ import { MissionEntity } from '../Entitiy/mission.entity';
 import { MissionList } from '../Entitiy/mission_list';
 import { RangkingEntity } from '../Entitiy/rangking.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { Team_entity } from '../Entitiy/team_entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { JwtModule } from '@nestjs/jwt';
       MissionEntity,
       MissionList,
       RangkingEntity,
+      Team_entity,
     ]),
     JwtModule.register({}),
   ],

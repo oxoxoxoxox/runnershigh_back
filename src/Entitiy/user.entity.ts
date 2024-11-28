@@ -1,5 +1,6 @@
 import { DefaultEntity } from './default.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Team_entity } from './team_entity';
 
 @Entity()
 export class UserEntity extends DefaultEntity {
@@ -17,4 +18,7 @@ export class UserEntity extends DefaultEntity {
   level: number;
   @Column()
   accept: boolean;
+  @ManyToOne(() => Team_entity, (team: Team_entity) => team.users)
+  @JoinColumn()
+  team: Team_entity;
 }
