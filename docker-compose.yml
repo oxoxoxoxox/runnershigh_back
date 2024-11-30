@@ -16,19 +16,19 @@ services:
     depends_on:
       - mariadb
 
-  mariadb:
-    image: mariadb:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: 12341234
-      MYSQL_DATABASE: run
-      MYSQL_USER: runnershigh
-      MYSQL_PASSWORD: 12341234
-    ports:
-      - "1041:3306"
-    volumes:
-      - mariadb_data:/var/lib/mysql
-      - ./mariadb-init:/docker-entrypoint-initdb.d
-    command: —default-authentication-plugin=mysql_native_password
-
-volumes:
-  mariadb_data:
+#  mariadb:
+#    image: mariadb:latest
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 12341234
+#      MYSQL_DATABASE: run
+#      MYSQL_USER: runnershigh
+#      MYSQL_PASSWORD: 12341234
+#    ports:
+#      - "1041:3306"
+#    volumes:
+#      - mariadb_data:/var/lib/mysql
+#      - ./mariadb-init:/docker-entrypoint-initdb.d
+#    command: —default-authentication-plugin=mysql_native_password
+#
+# volumes:
+#  mariadb_data:
