@@ -11,8 +11,8 @@ services:
       DB_USERNAME: runnershigh
       DB_PASSWORD: 12341234
       DB_DATABASE: run
-    depends_on:
-      - mariadb
+#    depends_on:
+#      - mariadb
 
 #  mariadb:
 #    image: mariadb:latest
