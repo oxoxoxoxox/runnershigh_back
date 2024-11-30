@@ -6,9 +6,9 @@ services:
     ports:
       - "3333:3000"
     environment:
-      DB_HOST: mariadb
-      DB_PORT: 3306
-      DB_USERNAME: runnershigh
+      DB_HOST: 113.198.229.155
+      DB_PORT: 359
+      DB_USERNAME: runner
       DB_PASSWORD: 12341234
       DB_DATABASE: run
 #    depends_on:
