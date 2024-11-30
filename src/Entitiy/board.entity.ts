@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { DefaultEntity } from './default.entity';
 import { UserEntity } from './user.entity';
+import { Team_entity } from './team_entity';
 
 @Entity()
 export class BoardEntity extends DefaultEntity {
-  @ManyToOne((type) => UserEntity, (user: UserEntity) => user.id)
+  @ManyToOne(() => UserEntity, (user: UserEntity) => user.id)
   @JoinColumn()
   user: UserEntity; //userid
   @Column()
@@ -21,4 +22,7 @@ export class BoardEntity extends DefaultEntity {
   gender: string; //  성별 옵션 ex_남녀모두
   @Column()
   time: string; // 러닝 시간.
+  @OneToOne(() => Team_entity) //게시물에 해당하는 팀
+  @JoinColumn()
+  team: Team_entity;
 }

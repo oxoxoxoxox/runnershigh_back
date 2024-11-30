@@ -20,5 +20,5 @@ export class UserEntity extends DefaultEntity {
   accept: boolean;
   @ManyToOne(() => Team_entity, (team: Team_entity) => team.users)
   @JoinColumn()
-  team: Team_entity;
+  team: Team_entity; // 몇 번 팀인가?
 }
