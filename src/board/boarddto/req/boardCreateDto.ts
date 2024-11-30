@@ -10,5 +10,7 @@ export class BoardCreateDto {
   @IsString()
   time: string;
   @IsString()
+  date: string;
+  @IsString()
   image_url: string;
 }

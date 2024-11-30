@@ -22,6 +22,8 @@ export class BoardEntity extends DefaultEntity {
   gender: string; //  성별 옵션 ex_남녀모두
   @Column()
   time: string; // 러닝 시간.
+  @Column()
+  date: string;
   @OneToOne(() => Team_entity) //게시물에 해당하는 팀
   @JoinColumn()
   team: Team_entity;
