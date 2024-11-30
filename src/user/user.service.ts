@@ -54,11 +54,11 @@ export class UserService {
     const secB = this.configService.get('refresh_Key');
     const accessToken = this.jwtService.sign(payload, {
       secret: secA,
-      expiresIn: '100s',
+      expiresIn: '24h',
     });
     const refreshToken = this.jwtService.sign(payload, {
       secret: secB,
-      expiresIn: '100s',
+      expiresIn: '48h',
     });
     res.access = accessToken;
     res.refresh = refreshToken;
