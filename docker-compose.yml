@@ -1,30 +1,34 @@
 version: '3.8'
 
 services:
-  nest-app:
+  nestjs-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nest-app
     ports:
-      - '3333:3000'
+      - "3333:3000"
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USERNAME: runnershigh
+      DB_PASSWORD: 12341234
+      DB_DATABASE: run
     depends_on:
       - mariadb
-    env_file:
-      - .env
-    volumes:
-      - .:/runnershigh
-    command: npm run start:dev
 
   mariadb:
     image: mariadb:latest
-    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 12341234
+      MYSQL_DATABASE: run
+      MYSQL_USER: runnershigh
+      MYSQL_PASSWORD: 12341234
     ports:
-      - '1041:3306'
-    env_file:
-      - .docker.env
+      - "1041:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
+      - ./mariadb-init:/docker-entrypoint-initdb.d
+    command: —default-authentication-plugin=mysql_native_password
 
 volumes:
   mariadb_data:
