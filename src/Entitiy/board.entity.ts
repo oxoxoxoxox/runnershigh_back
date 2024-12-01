@@ -12,7 +12,7 @@ export class BoardEntity extends DefaultEntity {
   title: string; // 러닝 장소, 제목
   @Column()
   contents: string; //  게시글에 대한 내용
-  @Column()
+  @Column({ nullable: true })
   image_url: string; // 게시글 이미지 url .. https://media.triple.guide/triple-cms/c_limit,f_auto,h_1024,w_1024/5f1a8eb5-3b2f-47d4-b044-97291cb253a7.jpeg
   @Column()
   people: number; //  러닝 참석 인원?
@@ -24,7 +24,7 @@ export class BoardEntity extends DefaultEntity {
   time: string; // 러닝 시간.
   @Column()
   date: string;
-  @OneToOne(() => Team_entity) //게시물에 해당하는 팀
+  @OneToOne(() => Team_entity, (team) => team.board, { nullable: false }) //게시물에 해당하는 팀
   @JoinColumn()
   team: Team_entity;
 }
