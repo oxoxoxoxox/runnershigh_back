@@ -17,15 +17,18 @@ export class BoardService {
     @InjectRepository(UserEntity)
     private readonly userEntity: Repository<UserEntity>,
   ) {}
+
   async create(body: BoardCreateDto, req: Request) {
     const userID = req['user'].id;
 
+    const team: Team_entity = new Team_entity();
     const board: BoardEntity = new BoardEntity();
     board.title = body.title;
     board.contents = body.contents;
     board.image_url = body.image_url;
     board.gender = body.gender;
     board.time = body.time;
+    board.date = body.date;
     board.people = 1;
     board.status = true; // 신청가능
 
@@ -34,10 +37,31 @@ export class BoardService {
       board.status = false;
     }
 
-    board.user = userID;
+    board.team = team;
+
+    const user = await this.userEntity.findOne({
+      where: { id: userID },
+    });
+
+    board.user = user;
+
+    await this.teamEntity.save(team);
     await this.boardEntity.save(board);
 
-    const team: Team_entity = new Team_entity();
+    team.board = board;
+    team.users = [user];
+    await this.teamEntity.save(team);
+
+    return {
+      id: board.id,
+      title: board.title,
+      contents: board.contents,
+      people: board.people,
+      teamId: board.team.id,
+    };
+    /*board.user = userID;
+    await this.boardEntity.save(board);
+
     team.board = board;
     await this.teamEntity.findOne({
       relations: {
@@ -50,25 +74,23 @@ export class BoardService {
     const user = await this.userEntity.findOneBy({ id: userID });
     team.users = [user];
     await this.teamEntity.save(team);
-    return board;
+    return board;*/
   }
+
   async search() {
     const board = this.boardEntity.find();
     return board;
   }
+
   async join(qur: BoardJoinDto, req: Request) {
-    // 조인하면 해당 유저엔티티의 팀 아이디가 팀 아이디로 기입이 되게 한다.
-    const userID = req['user'].id; //로그인한 유저의 페이로드 저장
-    const teamID = qur.team; // 팀번호
+    const teamID = qur.team; // DTO에서 변환된 숫자 사용
+    const userID = req['user'].id;
+
     const user = await this.userEntity.findOne({
-      //이 유저가 현재 다른 팀에 속해있는가?
-      relations: {
-        team: true,
-      },
-      where: {
-        id: userID,
-      },
+      where: { id: userID },
+      relations: { team: true },
     });
+
     if (user?.team) {
       throw new Error('이미 팀에 참가되어있습니다.');
     }
@@ -86,18 +108,14 @@ export class BoardService {
     await this.userEntity.save(user);
 
     const board = await this.boardEntity.findOne({
-      //게시글에 해당하는 팀넘버 찾기
+      where: { team: { id: teamID } },
       relations: { team: true },
-      where: {
-        team: {
-          id: teamID,
-        },
-      },
     });
+
     if (board) {
       board.people += 1;
       await this.boardEntity.save(board);
     }
-    return board;
+    return { message: '팀에 성공적으로 참가하였습니다.', board };
   }
 }
