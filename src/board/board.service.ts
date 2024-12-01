@@ -25,7 +25,6 @@ export class BoardService {
     const board: BoardEntity = new BoardEntity();
     board.title = body.title;
     board.contents = body.contents;
-    board.image_url = body.image_url;
     board.gender = body.gender;
     board.time = body.time;
     board.date = body.date;
@@ -59,22 +58,6 @@ export class BoardService {
       people: board.people,
       teamId: board.team.id,
     };
-    /*board.user = userID;
-    await this.boardEntity.save(board);
-
-    team.board = board;
-    await this.teamEntity.findOne({
-      relations: {
-        users: true,
-      },
-      where: {
-        id: req['user'].id,
-      },
-    });
-    const user = await this.userEntity.findOneBy({ id: userID });
-    team.users = [user];
-    await this.teamEntity.save(team);
-    return board;*/
   }
 
   async search() {

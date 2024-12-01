@@ -11,6 +11,4 @@ export class BoardCreateDto {
   time: string;
   @IsString()
   date: string;
-  @IsString()
-  image_url: string;
 }
