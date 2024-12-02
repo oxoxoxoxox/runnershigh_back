@@ -17,6 +17,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'node:path';
 import { Response } from 'express';
+import { BoardSearchDto } from './boarddto/req/boardSearch.Dto';
 
 interface FileParams {
   fileName: string;
@@ -35,9 +36,14 @@ export class BoardController {
   ) {
     return this.boardService.create(body, req);
   }
-  @Get('search')
-  async search() {
-    return this.boardService.search();
+  @Get('searchAll')
+  async searchAll() {
+    return this.boardService.searchAll();
+  }
+
+  @Post('search')
+  async search(@Body() body: BoardSearchDto) {
+    return this.boardService.search(body);
   }
 
   @Post('upload')

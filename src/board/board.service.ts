@@ -1,4 +1,4 @@
-import { Injectable, Request } from '@nestjs/common';
+import { Injectable, Logger, Request } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BoardCreateDto } from './boarddto/req/boardCreateDto';
@@ -6,9 +6,11 @@ import { BoardEntity } from '../Entitiy/board.entity';
 import { UserEntity } from '../Entitiy/user.entity';
 import { Team_entity } from '../Entitiy/team_entity';
 import { BoardJoinDto } from './boarddto/req/boardJoin.Dto';
+import { BoardSearchDto } from './boarddto/req/boardSearch.Dto';
 
 @Injectable()
 export class BoardService {
+  private readonly logger: Logger = new Logger(this.constructor.name);
   constructor(
     @InjectRepository(BoardEntity)
     private readonly boardEntity: Repository<BoardEntity>,
@@ -20,7 +22,6 @@ export class BoardService {
 
   async create(body: BoardCreateDto, req: Request) {
     const userID = req['user'].id;
-
     const team: Team_entity = new Team_entity();
     const board: BoardEntity = new BoardEntity();
     board.title = body.title;
@@ -60,8 +61,18 @@ export class BoardService {
     };
   }
 
-  async search() {
+  async searchAll() {
     const board = this.boardEntity.find();
+    return board;
+  }
+
+  async search(body: BoardSearchDto) {
+    const board: BoardEntity = await this.boardEntity.findOne({
+      relations: { team: true },
+      where: {
+        id: body.team,
+      },
+    });
     return board;
   }
 
